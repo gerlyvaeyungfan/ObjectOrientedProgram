@@ -1,5 +1,5 @@
 import java.util.Scanner;
-;public class Hhpemo {
+public class HpDemo {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int inputStok;
