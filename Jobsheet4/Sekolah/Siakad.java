@@ -9,8 +9,7 @@ public class Siakad {
     private ArrayList<MataPelajaran> mataPelajaran;
     private ArrayList<Guru> guru;
 
-    public Siakad(LocalDate tanggal) {
-        this.tanggal = tanggal;
+    public Siakad() {
         this.siswa = new ArrayList<>();
         this.mataPelajaran = new ArrayList<>();
         this.guru = new ArrayList<>();

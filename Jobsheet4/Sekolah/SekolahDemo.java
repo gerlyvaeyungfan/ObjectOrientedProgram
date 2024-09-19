@@ -1,17 +1,14 @@
 package Sekolah;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class SekolahDemo {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Siakad siakad = new Siakad(LocalDate.now());
+        Siakad siakad = new Siakad();
 
-        // Data siswa dengan nomor absen, nama, dan kelas
-        List<Siswa> daftarSiswa = new ArrayList<>();
+        ArrayList<Siswa> daftarSiswa = new ArrayList<>();
         String[][] dataSiswa = {
             {"1", "Gerly Vaeyungfan", "1A"},
             {"2", "Aprilia Putri Anggraeni", "1A"},
@@ -46,20 +43,25 @@ public class SekolahDemo {
         siakad.addGuru(new Guru("Indra Dharma Wijaya ST., MMT", "NIP004"));
         siakad.addGuru(new Guru("Candra Bella Vista S.Kom., MT.", "NIP005"));
 
+        System.out.println("\nSelamat Datang di Sistem Informasi Akademik!");
         while (true) {
-            System.out.println("=== Menu SIAKAD ===");
-            System.out.println("1. Masukkan Nilai Mata Pelajaran untuk Siswa");
-            System.out.println("2. Tampilkan Daftar Guru");
-            System.out.println("3. Tampilkan Informasi Siswa");
-            System.out.println("4. Keluar");
-            System.out.print("Pilih menu: ");
+            System.out.println("\n=================================");
+            System.out.println("=========  Menu SIAKAD  =========");
+            System.out.println(">================================");
+            System.out.println("| 1. Masukkan Nilai Siswa");
+            System.out.println("| 2. Tampilkan Daftar Guru");
+            System.out.println("| 3. Tampilkan Informasi Siswa");
+            System.out.println("| 0. Keluar");
+            System.out.println("|--------------------------------");
+            System.out.print("||> Pilih menu: ");
             int pilihan = sc.nextInt();
             sc.nextLine();
 
             switch (pilihan) {
                 case 1:
                     while (true) {
-                        System.out.println("Pilih kelas:");
+                        System.out.println("\nData Informasi Kelas:");
+                        System.out.println("---------------------------------");
                         System.out.println("1. Kelas 1A");
                         System.out.println("2. Kelas 1B");
                         System.out.println("3. Kelas 1C");
@@ -92,12 +94,13 @@ public class SekolahDemo {
                         }
 
                         while (true) {
-                            System.out.println("Daftar Siswa di Kelas " + kelasTerpilih + ":");
-                            List<Siswa> siswaDiKelas = new ArrayList<>();
+                            System.out.println("\nDaftar Siswa di Kelas " + kelasTerpilih + ":");
+                            System.out.println("---------------------------------");
+                            ArrayList<Siswa> siswaDiKelas = new ArrayList<>();
                             for (Siswa siswa : siakad.getSiswa()) {
                                 if (siswa.getKelas().equals(kelasTerpilih)) {
                                     siswaDiKelas.add(siswa);
-                                    System.out.println(siswa.getNomorAbsen() + " - " + siswa.getNama());
+                                    System.out.println(siswa.getNomorAbsen()+". "+ siswa.getNama());
                                 }
                             }
 
@@ -106,9 +109,9 @@ public class SekolahDemo {
                                 break;
                             }
 
-                            System.out.println("0. Keluar ke menu utama");
+                            System.out.println("0. Keluar ke menu kelas");
 
-                            System.out.print("Masukkan nomor absen siswa: ");
+                            System.out.print("Pilih nomor absen siswa: ");
                             String nomorAbsen = sc.nextLine();
 
                             if (nomorAbsen.equals("0")) {
@@ -129,48 +132,50 @@ public class SekolahDemo {
                             }
 
                             while (true) {
-                                System.out.println("Pilih mata pelajaran untuk " +siswaTerpilih.getNama() + ":");
+                                System.out.println("\nDaftar mata pelajaran:");
+                                System.out.println("---------------------------------");
                                 for (int i = 0; i < siswaTerpilih.getRiwayatNilaiSiswa().size(); i++) {
                                     System.out.println((i + 1) + ". " +
                                     siswaTerpilih.getRiwayatNilaiSiswa().get(i).getNama());
                                 }
-                                System.out.println((siswaTerpilih.getRiwayatNilaiSiswa().size() + 1) +
-                                ". Keluar ke daftar siswa");
+                                System.out.println("0. Keluar ke daftar siswa");
 
                                 System.out.print("Pilih nomor mata pelajaran: ");
                                 int noMapel = sc.nextInt();
                                 sc.nextLine();
 
-                                if (noMapel == siswaTerpilih.getRiwayatNilaiSiswa().size() + 1) {
-                                    break; 
+                                if (noMapel == 0) {
+                                    break;
                                 }
                                 if (noMapel < 1 || noMapel > siswaTerpilih.getRiwayatNilaiSiswa().size()) {
                                     System.out.println("Nomor mata pelajaran tidak valid!");
                                     continue;
                                 }
-                                System.out.print("Masukkan nilai mata pelajaran: ");
+                                System.out.println("\n=================================");
+                                System.out.print("|> Masukkan nilai : ");
                                 int nilaiMapel = sc.nextInt();
+                                System.out.println("=================================");
                                 sc.nextLine();
 
                                 MataPelajaran mapelTerpilih = siswaTerpilih.getRiwayatNilaiSiswa().get(noMapel-1);
                                 mapelTerpilih.setNilai(nilaiMapel);
-                                System.out.println("Nilai berhasil ditambahkan untuk mata pelajaran " +
-                                mapelTerpilih.getNama() + " pada " + siswaTerpilih.getNama() + "!");
+                                System.out.println("\nNilai berhasil dimasukkan!");
                             }
                         }
                     }
                     break;
 
-
                 case 2:
-                    System.out.println("=== Daftar Guru ===");
+                    System.out.println("=================================");
+                    System.out.println("=========  Daftar Guru  =========");
                     for (Guru guru : siakad.getGuru()) {
                         System.out.println("Nama Guru: " + guru.getNama() + ", NIP: " + guru.getNip());
                     }
                     break;
 
                 case 3:
-                    System.out.println("=== Informasi Siswa ===");
+                    System.out.println("=================================");
+                    System.out.println("=======  Informasi Siswa  =======");
                     for (Siswa siswa : siakad.getSiswa()) {
                         System.out.println("Nomor Absen: " + siswa.getNomorAbsen());
                         System.out.println("Nama Siswa: " + siswa.getNama());
@@ -179,12 +184,14 @@ public class SekolahDemo {
                         for (MataPelajaran mapel : siswa.getRiwayatNilaiSiswa()) {
                             System.out.println("- " + mapel.getNama() + ": " + mapel.getNilai());
                         }
-                        System.out.println("------------------------");
+                        System.out.println("---------------------------------");
                     }
                     break;
 
-                case 4:
-                    System.out.println("Keluar dari program...");
+                case 0:
+                    System.out.println("\n[===============================]");
+                    System.out.println("[======== TERIMA KASIH! ========]");
+                    System.out.println("[===============================]");
                     sc.close();
                     return;
 
