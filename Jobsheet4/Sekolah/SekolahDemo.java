@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class SiakadDemo {
+public class SekolahDemo {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Siakad siakad = new Siakad(LocalDate.now());
@@ -30,10 +30,8 @@ public class SiakadDemo {
             String namaSiswa = data[1];
             String kelasSiswa = data[2];
 
-            // Buat siswa dengan nomor absen, nama, dan kelas
             Siswa siswa = new Siswa(nomorAbsen, namaSiswa, kelasSiswa);
 
-            // Tambahkan beberapa mata pelajaran tanpa nilai
             siswa.tambahMataPelajaran(new MataPelajaran("Matematika", 0));
             siswa.tambahMataPelajaran(new MataPelajaran("Bahasa Indonesia", 0));
             siswa.tambahMataPelajaran(new MataPelajaran("IPA", 0));
@@ -42,7 +40,6 @@ public class SiakadDemo {
         }
         siakad.getSiswa().addAll(daftarSiswa);
 
-        // Tambahkan 5 guru
         siakad.addGuru(new Guru("Endah Septa Sintiya S.Pd., M.Kom.", "NIP001"));
         siakad.addGuru(new Guru("Rosa Andrie Asmara ST., MT.", "NIP002"));
         siakad.addGuru(new Guru("Vit Zuraida S.Kom M.Kom.", "NIP003"));
@@ -57,12 +54,11 @@ public class SiakadDemo {
             System.out.println("4. Keluar");
             System.out.print("Pilih menu: ");
             int pilihan = sc.nextInt();
-            sc.nextLine(); // consume newline
+            sc.nextLine();
 
             switch (pilihan) {
                 case 1:
                     while (true) {
-                        // Tampilkan pilihan kelas
                         System.out.println("Pilih kelas:");
                         System.out.println("1. Kelas 1A");
                         System.out.println("2. Kelas 1B");
@@ -91,13 +87,11 @@ public class SiakadDemo {
                                 continue;
                         }
 
-                        // Jika pengguna memilih keluar
                         if (pilihanKelas == 0) {
-                            break; // Kembali ke menu utama
+                            break;
                         }
 
-                        // Tampilkan daftar siswa berdasarkan kelas yang dipilih
-                        while (true) { // Tambahkan loop di sini agar kembali ke daftar siswa setelah mengisi nilai
+                        while (true) {
                             System.out.println("Daftar Siswa di Kelas " + kelasTerpilih + ":");
                             List<Siswa> siswaDiKelas = new ArrayList<>();
                             for (Siswa siswa : siakad.getSiswa()) {
@@ -109,21 +103,18 @@ public class SiakadDemo {
 
                             if (siswaDiKelas.isEmpty()) {
                                 System.out.println("Tidak ada siswa di kelas ini.");
-                                break; // Kembali ke menu kelas
+                                break;
                             }
 
                             System.out.println("0. Keluar ke menu utama");
 
-                            // Input nomor absen siswa
                             System.out.print("Masukkan nomor absen siswa: ");
                             String nomorAbsen = sc.nextLine();
 
-                            // Pilih untuk keluar dari menu nilai
                             if (nomorAbsen.equals("0")) {
-                                break; // Kembali ke menu kelas
+                                break;
                             }
 
-                            // Temukan siswa berdasarkan nomor absen
                             Siswa siswaTerpilih = null;
                             for (Siswa siswa : siswaDiKelas) {
                                 if (siswa.getNomorAbsen().equals(nomorAbsen)) {
@@ -134,43 +125,37 @@ public class SiakadDemo {
 
                             if (siswaTerpilih == null) {
                                 System.out.println("Nomor absen tidak valid!");
-                                continue; // Kembali ke daftar siswa di kelas
+                                continue;
                             }
 
-                            // Menu pemilihan mata pelajaran
                             while (true) {
-                                System.out.println("Pilih mata pelajaran untuk " + siswaTerpilih.getNama() + ":");
+                                System.out.println("Pilih mata pelajaran untuk " +siswaTerpilih.getNama() + ":");
                                 for (int i = 0; i < siswaTerpilih.getRiwayatNilaiSiswa().size(); i++) {
-                                    System.out.println((i + 1) + ". " + siswaTerpilih.getRiwayatNilaiSiswa().get(i).getNama());
+                                    System.out.println((i + 1) + ". " +
+                                    siswaTerpilih.getRiwayatNilaiSiswa().get(i).getNama());
                                 }
-                                System.out.println((siswaTerpilih.getRiwayatNilaiSiswa().size() + 1) + ". Keluar ke daftar siswa");
+                                System.out.println((siswaTerpilih.getRiwayatNilaiSiswa().size() + 1) +
+                                ". Keluar ke daftar siswa");
 
-                                // Input nomor mata pelajaran
                                 System.out.print("Pilih nomor mata pelajaran: ");
                                 int noMapel = sc.nextInt();
-                                sc.nextLine(); // consume newline
+                                sc.nextLine();
 
-                                // Pilih untuk keluar dari pemilihan mata pelajaran dan kembali ke daftar siswa
                                 if (noMapel == siswaTerpilih.getRiwayatNilaiSiswa().size() + 1) {
-                                    break; // Kembali ke daftar siswa di kelas yang dipilih
+                                    break; 
                                 }
-
-                                // Pastikan nomor mata pelajaran valid
                                 if (noMapel < 1 || noMapel > siswaTerpilih.getRiwayatNilaiSiswa().size()) {
                                     System.out.println("Nomor mata pelajaran tidak valid!");
                                     continue;
                                 }
-
-                                // Input nilai mata pelajaran
                                 System.out.print("Masukkan nilai mata pelajaran: ");
                                 int nilaiMapel = sc.nextInt();
-                                sc.nextLine(); // consume newline
+                                sc.nextLine();
 
-                                // Update nilai mata pelajaran
-                                MataPelajaran mapelTerpilih = siswaTerpilih.getRiwayatNilaiSiswa().get(noMapel - 1);
+                                MataPelajaran mapelTerpilih = siswaTerpilih.getRiwayatNilaiSiswa().get(noMapel-1);
                                 mapelTerpilih.setNilai(nilaiMapel);
-
-                                System.out.println("Nilai berhasil ditambahkan untuk mata pelajaran " + mapelTerpilih.getNama() + " pada " + siswaTerpilih.getNama() + "!");
+                                System.out.println("Nilai berhasil ditambahkan untuk mata pelajaran " +
+                                mapelTerpilih.getNama() + " pada " + siswaTerpilih.getNama() + "!");
                             }
                         }
                     }
@@ -178,7 +163,6 @@ public class SiakadDemo {
 
 
                 case 2:
-                    // Tampilkan daftar guru
                     System.out.println("=== Daftar Guru ===");
                     for (Guru guru : siakad.getGuru()) {
                         System.out.println("Nama Guru: " + guru.getNama() + ", NIP: " + guru.getNip());
@@ -186,14 +170,11 @@ public class SiakadDemo {
                     break;
 
                 case 3:
-                    // Tampilkan informasi siswa
                     System.out.println("=== Informasi Siswa ===");
                     for (Siswa siswa : siakad.getSiswa()) {
                         System.out.println("Nomor Absen: " + siswa.getNomorAbsen());
                         System.out.println("Nama Siswa: " + siswa.getNama());
                         System.out.println("Kelas: " + siswa.getKelas());
-
-                        // Tampilkan mata pelajaran dan nilai siswa tersebut
                         System.out.println("Mata Pelajaran dan Nilai:");
                         for (MataPelajaran mapel : siswa.getRiwayatNilaiSiswa()) {
                             System.out.println("- " + mapel.getNama() + ": " + mapel.getNilai());
