@@ -11,7 +11,7 @@ public class SekolahDemo {
         ArrayList<Siswa> daftarSiswa = new ArrayList<>();
         String[][] dataSiswa = {
             {"1", "Gerly Vaeyungfan", "1A"},
-            {"2", "Aprilia Putri Anggraeni", "1A"},
+            {"2", "Aprilia Putri", "1A"},
             {"3", "Meisi Nadia Nababan", "1A"},
             {"4", "Rahmalia Mutia Farda", "1A"},
             {"1", "Adam Nur Alifi", "1B"},
@@ -48,11 +48,11 @@ public class SekolahDemo {
             System.out.println("\n=================================");
             System.out.println("=========  Menu SIAKAD  =========");
             System.out.println(">================================");
-            System.out.println("| 1. Masukkan Nilai Siswa");
-            System.out.println("| 2. Tampilkan Daftar Guru");
-            System.out.println("| 3. Tampilkan Informasi Siswa");
-            System.out.println("| 0. Keluar");
-            System.out.println("|--------------------------------");
+            System.out.println("| 1. Masukkan Nilai Siswa       |");
+            System.out.println("| 2. Tampilkan Daftar Guru      |");
+            System.out.println("| 3. Tampilkan Informasi Siswa  |");
+            System.out.println("| 0. Keluar                     |");
+            System.out.println("|-----------------------------._|");
             System.out.print("||> Pilih menu: ");
             int pilihan = sc.nextInt();
             sc.nextLine();
@@ -166,28 +166,53 @@ public class SekolahDemo {
                     break;
 
                 case 2:
-                    System.out.println("=================================");
-                    System.out.println("=========  Daftar Guru  =========");
+                    System.out.println("\n======================================================");
+                    System.out.println("  No  |             Nama Guru             |    NIP    ");
+                    System.out.println("======================================================");
+                    
+                    int noGuru = 1; // Inisialisasi nomor urut guru
                     for (Guru guru : siakad.getGuru()) {
-                        System.out.println("Nama Guru: " + guru.getNama() + ", NIP: " + guru.getNip());
+                        System.out.printf("   %-2d | %-33s | %-10s \n", 
+                                        noGuru, 
+                                        guru.getNama(), 
+                                        guru.getNip());
+                        noGuru++;
                     }
+                    System.out.println("======================================================");
+                    
                     break;
 
                 case 3:
-                    System.out.println("=================================");
-                    System.out.println("=======  Informasi Siswa  =======");
+                    System.out.println("\n=============================================================================");
+                    System.out.println(" No Abs. |         Nama         |   Kelas   |   Mata Pelajaran   |  Nilai  ");
+                    System.out.println("=============================================================================");
+                    
                     for (Siswa siswa : siakad.getSiswa()) {
-                        System.out.println("Nomor Absen: " + siswa.getNomorAbsen());
-                        System.out.println("Nama Siswa: " + siswa.getNama());
-                        System.out.println("Kelas: " + siswa.getKelas());
-                        System.out.println("Mata Pelajaran dan Nilai:");
+                        boolean pertama = true;  // Flag untuk memastikan nama dan kelas hanya ditampilkan sekali per siswa
+                    
                         for (MataPelajaran mapel : siswa.getRiwayatNilaiSiswa()) {
-                            System.out.println("- " + mapel.getNama() + ": " + mapel.getNilai());
+                            if (pertama) {
+                                // Cetak nama dan kelas hanya pada iterasi pertama
+                                System.out.printf("    %-4s | %-20s |    %-5s  | %-18s |  %-6d \n", 
+                                                siswa.getNomorAbsen(), 
+                                                siswa.getNama(), 
+                                                siswa.getKelas(), 
+                                                mapel.getNama(), 
+                                                mapel.getNilai());
+                                pertama = false;  // Setelah ditampilkan sekali, flag diubah agar tidak muncul lagi
+                            } else {
+                                // Kosongkan kolom Nama dan Kelas untuk baris selanjutnya
+                                System.out.printf("         |                      |           | %-18s |  %-6d \n", 
+                                                mapel.getNama(), 
+                                                mapel.getNilai());
+                            }
                         }
-                        System.out.println("---------------------------------");
                     }
+                    
+                    System.out.println("-----------------------------------------------------------------------------");
+                    
                     break;
-
+            
                 case 0:
                     System.out.println("\n[===============================]");
                     System.out.println("[======== TERIMA KASIH! ========]");
