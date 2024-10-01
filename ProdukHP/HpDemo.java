@@ -33,6 +33,8 @@ public class HpDemo {
         inputStok = input.nextInt();
         hp1.tambahStok(inputStok);
         hp2.cetakInfoHP();
+
+        input.close();
     }
 }
 

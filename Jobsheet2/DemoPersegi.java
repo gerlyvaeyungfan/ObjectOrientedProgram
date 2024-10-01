@@ -17,6 +17,8 @@ public class DemoPersegi {
 
         int keliling = persegiPanjang.getKeliling();
         System.out.println("Keliling Persegi Panjang: " + keliling);
+
+        input.close();
     }
 }
 

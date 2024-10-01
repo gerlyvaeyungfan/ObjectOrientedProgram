@@ -25,5 +25,7 @@ public class KalkulatorDemo {
         } else {
             System.out.println("Hasil: " + hasil);
         }
+
+        scanner.close();
     }
 }
