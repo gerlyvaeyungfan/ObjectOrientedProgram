@@ -2,23 +2,23 @@ package Jobsheet6.Tugas;
 
 // Child Class 2: Ikan
 public class Ikan extends Hewan {
-    public String habitat;
+    public String penutupTubuh;
 
     // Constructor tanpa parameter (Overloading)
     public Ikan() {
         super();  // Memanggil constructor tanpa parameter dari class parent
-        this.habitat = "Tidak diketahui";
+        this.penutupTubuh = "Tidak diketahui";
     }
 
     // Constructor berparameter (Overloading)
-    public Ikan(String nama, String jenisKelamin, int umur, String habitat) {
+    public Ikan(String nama, String jenisKelamin, int umur, String penutupTubuh) {
         super(nama, jenisKelamin, umur);  // Memanggil constructor berparameter dari class parent
-        this.habitat = habitat;
+        this.penutupTubuh = penutupTubuh;
     }
 
     // Method untuk menampilkan info ikan
     @Override
     public String getInfo() {
-        return super.getInfo() + "\nHabitat: " + habitat;
+        return super.getInfo() + "\nPenutup Tubuh: " + penutupTubuh;
     }
 }

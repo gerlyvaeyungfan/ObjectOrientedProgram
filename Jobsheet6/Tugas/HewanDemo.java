@@ -18,14 +18,15 @@ public class HewanDemo {
         System.out.println(ikan1.getInfo());
 
         // Membuat objek Ikan menggunakan constructor berparameter
-        Ikan ikan2 = new Ikan("Nila", "Jantan", 1, "Air Tawar");
+        Ikan ikan2 = new Ikan("Nila", "Jantan", 1, "Sisik");
         System.out.println("\nInfo Ikan 2:");
         System.out.println(ikan2.getInfo());
 
         // Modifikasi nilai atribut dan cetak ulang informasi
         burung2.nama = "Elang";
         burung2.warnaBulu = "Cokelat";
-        ikan2.habitat = "Laut";
+        ikan2.nama = "Lele";
+        ikan2.penutupTubuh = "Kulit";
 
         System.out.println("\nSetelah Modifikasi Info Burung 2:");
         System.out.println(burung2.getInfo());
